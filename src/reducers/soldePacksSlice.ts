@@ -4,32 +4,32 @@ import { API_URL } from "../api/axiosConfig";
 interface SoldePacks {
   _id: string;
   title: string;
-  dannosValue: string | null;
+  soldeValue: string | null;
   realValue: string;
 }
 
 interface SettingsState {
-  dannosPacks: SoldePacks[];
+  soldePacks: SoldePacks[];
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: SettingsState = {
-  dannosPacks: [],
+  soldePacks: [],
   isLoading: false,
   error: "",
 };
 
 export const fetchSoldePacks = createAsyncThunk(
-  "dannosPacks/fetchSoldePacks",
+  "soldePacks/fetchSoldePacks",
   async () => {
     const response = await fetch(`${API_URL}/setting/getAllPacks`);
     return response.json();
   }
 );
 
-export const dannosPacksSlice = createSlice({
-  name: "dannosPacks",
+export const soldePacksSlice = createSlice({
+  name: "soldePacks",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -38,17 +38,17 @@ export const dannosPacksSlice = createSlice({
     });
     builder.addCase(fetchSoldePacks.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.dannosPacks = action.payload;
+      state.soldePacks = action.payload;
       state.error = "";
     });
     builder.addCase(fetchSoldePacks.rejected, (state, action) => {
       state.isLoading = false;
-      state.dannosPacks = [];
+      state.soldePacks = [];
       state.error = "error";
     });
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {} = dannosPacksSlice.actions;
-export default dannosPacksSlice.reducer;
+export const {} = soldePacksSlice.actions;
+export default soldePacksSlice.reducer;

@@ -53,12 +53,12 @@ export const CreateProduct = ( { isModalOpen } : Props ) => {
     try {
       await createProductsApi(formDataToSubmit);
       setIsSuccess(true);
-      toast.success("Product created successfully!");
+      toast.success("Produit créé avec succès !");
       reset();
       closeModal();
       if (coId) {dispatch(fetchProducts(coId))}
     } catch (error) {
-      toast.error("Error creating product");
+      toast.error("Erreur lors de la création du produit");
     }
   };
 

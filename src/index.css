@@ -454,7 +454,7 @@
   margin-top: 8px;
 }
 
-.dannosWalletStyle {
+.soldeWalletStyle {
   font-family: "Montserrat";
   font-weight: 700;
   font-size: 14px;
@@ -936,7 +936,7 @@
   color: #FFF;
 }
 
-.live-Classment-item > .dannos {
+.live-Classment-item > .solde {
   font-family: "Orbitron";
   font-weight: 800;
   font-size: 30px;

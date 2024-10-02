@@ -85,6 +85,14 @@ const Sidebar = (props: Props) => {
               <AiOutlineUser className="text-md font-bold " />
               <p className="sideMenuItem">Live</p>
             </Link>
+
+            <Link
+              to={{ pathname: `/parametres/${curUser?._id}` }}
+              className="flex flex-col items-center justify-arround text-white hover:scale-105 duration-500 ease-in-out"
+            >
+              <AiOutlineSetting className="text-md font-bold " />
+              <p className="sideMenuItem">Paramètres</p>
+            </Link>
           </>
         )}
         {access_role == "1" && (
@@ -108,13 +116,7 @@ const Sidebar = (props: Props) => {
             </Link>
           </>
         )}
-        <Link
-          to={{ pathname: `/parametres/${curUser?._id}` }}
-          className="flex flex-col items-center justify-arround text-white hover:scale-105 duration-500 ease-in-out"
-        >
-          <AiOutlineSetting className="text-md font-bold " />
-          <p className="sideMenuItem">Paramètres</p>
-        </Link>
+      
       </div>
     </div>
   );

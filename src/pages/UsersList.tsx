@@ -63,7 +63,7 @@ const UsersList = (props: Props) => {
           <div className="w-full grid grid-cols-6 gap-1 userGrid rounded h-12">
             <div className="uppercase p-3 mt-2">nom</div>
             <div className="uppercase py-3 px-5 mt-2">phone</div>
-            <div className="uppercase py-3 px-5 mt-2">dannos</div>
+            <div className="uppercase py-3 px-5 mt-2">solde</div>
             <div className="uppercase py-3 px-5 mt-2">participants</div>
             <div className="uppercase py-3 px-5 mt-2">gagnés</div>
             <div className="uppercase text-end p-3 mt-2">états</div>

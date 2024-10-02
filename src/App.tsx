@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../src/pages/Login";
 import UsersList from "../src/pages/UsersList";
 import UsersInfos from "../src/pages/UsersInfos";
@@ -20,21 +19,20 @@ import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Parametres from "./pages/Parametres";
 import Live from "./pages/Live";
-import LiveCompany from "./pages/LiveCompany";
 import Statistics from "./pages/Statistics";
 import Dashboard from "./pages/Dashboard";
 import ProductInfo from "./pages/ProductInfo";
+import Register from "./pages/Register";
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} index />
+          <Route path="/register" element={<Register />} index />
           <Route path="/reset-password" element={<ResetPassword />} index />
           <Route path="/forgotPassword" element={<ForgotPassword />} index />
         
-          
-          
           <Route
             path="/"
             element={
@@ -119,6 +117,7 @@ function App() {
             <Route path="liveCompany" element={<Live />} />
             <Route path="Statistiques" element={<Statistics />} />
             <Route path="Dashboard" element={<Dashboard />} />
+            <Route path="" element={<Dashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>

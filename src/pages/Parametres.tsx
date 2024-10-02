@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { fetchSoldePacks } from "../reducers/dannosPacksSlice";
-import SoldePacks from "../components/dannosPacks";
+import { fetchSoldePacks } from "../reducers/soldePacksSlice";
+import SoldePacks from "../components/soldePacks";
 import { API_URL, axiosWithCred } from "../api/axiosConfig";
 import { useForm } from "react-hook-form";
 import { AiFillCloseCircle, AiFillPlusSquare, AiFillSave, AiOutlineCheck, AiOutlineClose, AiOutlineCloseCircle, AiOutlineCloseSquare, AiOutlineSave } from "react-icons/ai";
@@ -18,7 +18,7 @@ type Props = {};
 const Parametres: React.FC<Props> = (props) => {
   const dispatch = useDispatch<any>();
   const setting = useSelector((state: any) => state.settings);
-  const dannosPacks = useSelector((state: any) => state.dannosPacks);
+  const soldePacks = useSelector((state: any) => state.soldePacks);
   const { userId } = useParams();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editedValue, setEditedValue] = useState<string>("");
@@ -71,7 +71,7 @@ const Parametres: React.FC<Props> = (props) => {
         `${API_URL}/setting/updateSoldePacks`,
         {
           packId: id,
-          dannosValue: v,
+          soldeValue: v,
           realValue: val,
         },
         { headers }
@@ -106,7 +106,7 @@ const Parametres: React.FC<Props> = (props) => {
         `${API_URL}/setting/createNewPack`,
         {
           title: newPackTitle,
-          dannosValue: newPackSoldeValue,
+          soldeValue: newPackSoldeValue,
           realValue: newPackRealValue,
         },
         { headers }
@@ -199,12 +199,12 @@ const Parametres: React.FC<Props> = (props) => {
                 <div className="add-title" >Ajouter Pack</div>
               </div>
               <div>
-                {dannosPacks.dannosPacks.map((elem: any, ind: number) => (
+                {soldePacks.soldePacks.map((elem: any, ind: number) => (
                   <SoldePacks
                     key={`st-${ind}`}
                     id={elem._id}
                     title={elem.title}
-                    dannosValue={elem.dannosValue}
+                    soldeValue={elem.soldeValue}
                     realValue={elem.realValue}
                     onSave={handleSave2}
                     onCancel={handleCancel}

@@ -66,3 +66,29 @@ export async function companyRapport(dateDebut : string, dateFin: string): Promi
 
 
   
+interface RegisterData {
+  message: string;
+  status: number;
+  userID?: string;
+  token?: string;
+}
+
+export async function registerCompany(
+  userName: string,
+  password: string,
+  companyName: string,
+  email: string,
+  phone: string
+): Promise<RegisterData | undefined> {
+  try {
+    const { data }: { data: RegisterData } = await Axios().post(
+      "company/registerCompany",
+      { userName, password, companyName, email, phone }
+    );
+
+    return {...data, status: 201};  
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
+}

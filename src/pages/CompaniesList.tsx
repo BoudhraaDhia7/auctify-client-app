@@ -132,9 +132,6 @@ const CompaniesList = (props: Props) => {
         <div className="w-full">
           <TotalProds />
         </div>
-        <div className="w-full">
-          <TotalProdsBenefits />
-        </div>
       </div>
     </div>
   );

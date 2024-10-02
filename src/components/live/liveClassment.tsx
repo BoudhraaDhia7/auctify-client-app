@@ -22,7 +22,7 @@ export const LiveClassment = ({ classment }: Props) => {
               <div className="avatar" style={{ backgroundImage: `url(${c.betAvatar})` }}></div>
               <div className="avatar-name">{c.betUserName}</div>
             </div>
-            <div className="dannos">{c.totalSolde}</div>
+            <div className="solde">{c.totalSolde}</div>
           </div>
         )
       }

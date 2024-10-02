@@ -102,54 +102,7 @@ const Dashboard = (props: Props) => {
     }
   }, [totSoldePerMonth]);
   
-  useEffect(() => {
-    if (totalSoldeParticipationPerMonth) {
-      const monthData = monthNames.map((month) => {
-        const foundData = totalSoldeParticipationPerMonth.find(
-          (elem: any) => elem.month === month
-        );
-        return foundData ? foundData.totalAmountGiven : 0;
-      });
   
-      const options = {
-        chart: {
-          type: 'bar',
-          height: 350,
-        },
-        plotOptions: {
-          bar: {
-            distributed: true,
-            colors: {
-              ranges: [
-                { from: 0, to: 5000, color: '#445E97' },
-                { from: 5000, to: 10000, color: '#708FD2' },
-                { from: 10000, to: 15000, color: '#0E3BA6' },
-                { from: 15000, color: '#00133D' }
-              ]
-            }
-          }
-        },
-        xaxis: {
-          categories: monthNames,
-        },
-        series: [
-          {
-            name: 'Total Amount Given',
-            data: monthData,
-          },
-        ],
-      };
-  
-      const chart = new ApexCharts(participationChartRef.current, options);
-      chart.render();
-  
-      return () => {
-        chart.destroy();
-      };
-    }
-  }, [totalSoldeParticipationPerMonth]);
-  
-
   useEffect(() => {
     if (totalSoldeParticipationPerMonth) {
       const monthData = monthNames.map((month) => {
@@ -248,7 +201,6 @@ const Dashboard = (props: Props) => {
         <div className="dashBoardColum dashStatCol">
           <TotalCompanies />
           <TotalProds />
-          <TotalProdsBenefits />
         </div>
         <div className="dashBoardColum dashGraphCol">
           <div className="graphTitle">Produits par mois</div>

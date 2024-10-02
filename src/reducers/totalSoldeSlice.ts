@@ -45,7 +45,7 @@ export const totalSoldeSlice = createSlice({
       state.total = 0;
       state.totalReceived = 0;
       state.totalSent = 0;
-      state.error = "Error fetching total dannos";
+      state.error = "Error fetching total solde";
     });
   },
 });

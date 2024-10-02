@@ -44,7 +44,7 @@ export const totalProductsSoldePerMonthSlice = createSlice({
       (state, action) => {
         state.isLoading = false;
         state.data = [];
-        state.error = "Error fetching total products dannos per month";
+        state.error = "Error fetching total products per month";
       }
     );
   },

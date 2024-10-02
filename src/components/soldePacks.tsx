@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 interface Props {
   id: string;
   title?: string;
-  dannosValue: string;
+  soldeValue: string;
   realValue: string;
   onChange: (id: any, value: string) => void;
   onSave: (id: any, v: string, val: string) => void;
@@ -23,7 +23,7 @@ interface Props {
 const SoldePacks: React.FC<Props> = ({
   id,
   title,
-  dannosValue,
+  soldeValue,
   realValue,
   onDelete,
   onSave,
@@ -34,7 +34,7 @@ const SoldePacks: React.FC<Props> = ({
   const setting = useSelector((state: any) => state.settings);
 
   const [editing, setEditing] = useState(false);
-  const [dannosVal, setSoldeVal] = useState(dannosValue);
+  const [soldeVal, setSoldeVal] = useState(soldeValue);
   const [realVal, setRealVal] = useState(realValue);
   const roleID = localStorage.getItem("roleID");
   // console.log(typeof roleID);
@@ -58,7 +58,7 @@ const SoldePacks: React.FC<Props> = ({
   };
 
   const handleSaveClick = () => {
-    onSave(id, dannosVal, realVal);
+    onSave(id, soldeVal, realVal);
     setEditing(false);
   };
 
@@ -78,7 +78,7 @@ const SoldePacks: React.FC<Props> = ({
           <input
            className="sett-col-outline"
             type="text"
-            defaultValue={dannosVal}
+            defaultValue={soldeVal}
             onChange={handleInputChange}
           />
 
@@ -102,7 +102,7 @@ const SoldePacks: React.FC<Props> = ({
         </div>
       ) : (
         <div className="settings-view">
-          <div className="sett-col">{dannosVal} {setting.appDevise}</div>
+          <div className="sett-col">{soldeVal} {setting.appDevise}</div>
           <div className="sett-col">{realVal} {setting.devise}</div>
           {roleID == "2" && (
             <div className="sett-actions">

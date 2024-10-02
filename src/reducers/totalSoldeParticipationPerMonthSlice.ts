@@ -42,7 +42,7 @@ export const totalSoldeParticipationPerMonthSlice = createSlice({
     builder.addCase(fetchTotalSoldeParticipation.rejected, (state, action) => {
       state.isLoading = false;
       state.data = [];
-      state.error = "Error fetching total dannos participation";
+      state.error = "Error fetching total solde participation";
     });
   },
 });

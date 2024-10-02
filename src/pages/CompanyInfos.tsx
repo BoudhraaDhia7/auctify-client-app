@@ -89,6 +89,13 @@ const CompanyInfos = (props: Props) => {
       console.log("Failed to unrestrict company", error);
     }
   };
+
+  function generateImgUrl(filePath: string) {
+    console.log("filePath", filePath);
+    if(filePath.includes("http")) return filePath;
+    return `${PICT_URL}${filePath}`;
+  }
+
   return (
     <div className="w-full h-full">
       <div className="detailsRow">
@@ -147,15 +154,7 @@ const CompanyInfos = (props: Props) => {
                     <div className="value">{companyInfos?.matricule_fiscale}</div>
                   </div>
                 </div>
-                <div className="profileRow ">
-                  <div className="profileGridItem">
-                    <div className="label">Documents</div>
-                    <div className="companyDocs">
-                      <div className="company-docs-image" style={{ backgroundImage: `url(${ PICT_URL + '/' + companyInfos?.commerceRegister})` }}></div>
-                    </div>
-                  </div>
-                
-                </div>
+             
                 <div className="">
                   <div className="profileRow flex ">
                     <div className="px-2 py-1">
@@ -178,21 +177,7 @@ const CompanyInfos = (props: Props) => {
                       )}
                     </div>
                   </div>
-                  <div>
-                    {companyInfos?.status == 1 && <button
-                      onClick={handleRestrict}
-                      className={`ban-button bg-red-200`}
-                    >
-                      Bloquer le compte
-                    </button>}
-
-                    {companyInfos?.status == 3 && <button
-                      onClick={handleUnrestrict}
-                      className={`ban-button bg-green-200`}
-                    >
-                      Débloquer le compte
-                    </button>}
-                  </div>
+              
                 </div>
               </div>
             </div>
@@ -228,7 +213,7 @@ const CompanyInfos = (props: Props) => {
                           <SwiperSlide key={file.filePath}>
                             <img
                               className="rounded-lg"
-                              src={`${PICT_URL}/${file.filePath}`}
+                              src={generateImgUrl(file.filePath)}
                               alt={file.productPicture}
                               style={{ width: "100px", height: "100px" }}
                             />
@@ -271,7 +256,7 @@ const CompanyInfos = (props: Props) => {
           <div className="content">
             <CardHeader
               label1="TOTAL"
-              label2="TOTAL DANNOS PAR"
+              label2="TOTAL solde PAR"
               label3="BENEFITS"
               value1={tot?.totalPrice}
               value2={tot?.totalSoldeParticipationByCompany}

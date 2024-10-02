@@ -241,7 +241,7 @@ const UsersInfos = (props: Props) => {
                             <div className="transactionDate ">
                               {formatDate2(transaction.date)}
                             </div>
-                            <div className="dannosWalletStyle">
+                            <div className="soldeWalletStyle">
                               Solde Wallet
                             </div>
                             <div className="AlimentationStyle">

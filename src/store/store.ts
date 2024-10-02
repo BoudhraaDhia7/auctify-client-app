@@ -16,7 +16,7 @@ import totalProdsReducer from "../reducers/totalProdsSlice";
 import inProgressReducer from "../reducers/inProgressSlice";
 import endedProductsReducer from "../reducers/endedProductsSlice";
 import settingsReducer from "../reducers/settings";
-import dannosPacksReducer from "../reducers/dannosPacksSlice";
+import soldePacksReducer from "../reducers/soldePacksSlice";
 import totalProdsByCompanyIdReducer from "../reducers/totalProdsByCompanyIdSlice";
 import productsParticipationByCompanyIdReducer from "../reducers/productsParticipationByCompanyIdSlice";
 import participationDetailsReducer from "../reducers/participationDetailsSlice";
@@ -47,7 +47,7 @@ export const store = configureStore({
     inProgressProducts: inProgressReducer,
     endedProducts: endedProductsReducer,
     settings: settingsReducer,
-    dannosPacks: dannosPacksReducer,
+    soldePacks: soldePacksReducer,
     totalProdsByCompanyId: totalProdsByCompanyIdReducer,
     productsParticipationByCompanyId: productsParticipationByCompanyIdReducer,
     participationDetails: participationDetailsReducer,

@@ -24,7 +24,7 @@ const TotalProdsBenefits = (props: Props) => {
   return (
     <div className="w-full ">
       <Card
-        title="Total products dannos"
+        title="Total products"
         value={totalPrice}
         label1="Total"
         value1={multipliedBenefit}

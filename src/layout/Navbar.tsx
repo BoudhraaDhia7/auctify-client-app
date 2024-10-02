@@ -83,9 +83,11 @@ const Navbar = (props: Props) => {
     dispatch(setGlobalSearch(t));
   }
 
-  
-  
-
+  function generateImgUrl(filePath: string) {
+    console.log("filePath", filePath);
+    if(filePath.includes("http")) return filePath;
+    return `${PICT_URL}${filePath}`;
+  }
 
   return (
     <nav className="bg-opacity-100">
@@ -112,7 +114,7 @@ const Navbar = (props: Props) => {
               ? "Statistiques"
               : location.pathname.includes("/Dashboard")
               ? "Dashboard"
-              : ""}
+              : "Dashboard"}
           </div>
           {(withSearch) && <div 
             style={{
@@ -177,7 +179,7 @@ const Navbar = (props: Props) => {
               />
             ) : (
               <img
-                src={`${PICT_URL}/${curUser?.logo}`}
+                src={generateImgUrl(curUser?.logo)} 
                 alt=""
                 className="rounded-full border border-gray-100 shadow-sm mr-4 "
                 height="40"
