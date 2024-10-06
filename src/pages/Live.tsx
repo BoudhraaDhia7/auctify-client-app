@@ -101,7 +101,20 @@ const Live = (props: Props) => {
       </div>
     )
   }
-  
+
+  function generateBGImgUrl(filePath: string) {
+    console.log('filePath', filePath)
+    if (filePath.includes('http')) return filePath
+
+    // Replace backslashes with forward slashes
+    const normalizedFilePath = filePath.replace(/\\/g, '/')
+
+    // Ensure the filePath is properly encoded after normalization
+    const cleanFilePath = encodeURI(normalizedFilePath)
+
+    return `${PICT_URL}${cleanFilePath}`
+  }
+
   return (
     <div className='w-full h-full'>
       <div className='detailsRow' style={{ height: '100%' }}>
@@ -109,9 +122,13 @@ const Live = (props: Props) => {
           className='cardDetailsContainer w-full'
           style={{ flex: 1, background: 'none' }}
         >
-          <div className='content w-full' style={{ background: 'none', padding: 0 , height:"100%"}}>
+          <div
+            className='content w-full'
+            style={{ background: 'none', padding: 0, height: '100%' }}
+          >
             <div className='grid grid-cols-2 gap-6 rounded-lg h-full w-full'>
-              {inprog && inprog.length > 0 && (
+              {inprog &&
+                inprog.length > 0 &&
                 inprog.map((product: Product) => (
                   <div
                     key={product._id}
@@ -120,7 +137,9 @@ const Live = (props: Props) => {
                     <div
                       className='companyLogo'
                       style={{
-                        backgroundImage: `url(${PICT_URL}/${product.companyLogo})`,
+                        backgroundImage: `url(${generateBGImgUrl(
+                          product.companyLogo
+                        )})`,
                       }}
                     ></div>
 
@@ -160,9 +179,7 @@ const Live = (props: Props) => {
                       </div>
                     </div>
                   </div>
-                ))
-              ) 
-              }
+                ))}
             </div>
           </div>
         </div>

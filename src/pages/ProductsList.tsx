@@ -63,6 +63,18 @@ const ProductsList = (props: Props) => {
     if (filePath?.includes('http')) return filePath
     return `${PICT_URL}${filePath}`
   }
+  function generateBGImgUrl(filePath: string) {
+    console.log('filePath', filePath)
+    if (filePath.includes('http')) return filePath
+
+    // Replace backslashes with forward slashes
+    const normalizedFilePath = filePath.replace(/\\/g, '/')
+
+    // Ensure the filePath is properly encoded after normalization
+    const cleanFilePath = encodeURI(normalizedFilePath)
+
+    return `${PICT_URL}${cleanFilePath}`
+  }
 
   return (
     <div className='dashboardContainer'>
@@ -114,7 +126,9 @@ const ProductsList = (props: Props) => {
                 <div
                   className='companyLogo bg-cover bg-center w-[60px] h-[60px] rounded-full mb-2'
                   style={{
-                    backgroundImage: `url(${PICT_URL}/${product.companyLogo})`,
+                    backgroundImage: `url(${generateBGImgUrl(
+                      product.companyLogo
+                    )})`,
                   }}
                 ></div>
                 <div className='content flex items-center'>
@@ -165,8 +179,12 @@ const ProductsList = (props: Props) => {
             ))
           ) : (
             <div className='no-data-message flex items-center justify-center h-screen w-screen mb-20'>
-              <p className='text-center text-lg font-semibold text-gray-500' style={{marginBottom: "280px", marginRight:"180px"}}>
-                Aucune enchère prochaine disponible. Revenez plus tard pour <br/>
+              <p
+                className='text-center text-lg font-semibold text-gray-500'
+                style={{ marginBottom: '280px', marginRight: '180px' }}
+              >
+                Aucune enchère prochaine disponible. Revenez plus tard pour{' '}
+                <br />
                 découvrir les nouvelles enchères.
               </p>
             </div>
@@ -182,7 +200,9 @@ const ProductsList = (props: Props) => {
                 <div
                   className='companyLogo'
                   style={{
-                    backgroundImage: `url(${PICT_URL}/${product.companyLogo})`,
+                    backgroundImage: `url(${generateBGImgUrl(
+                      product.companyLogo
+                    )})`,
                   }}
                 ></div>
                 <div className='content flex items-center'>
@@ -192,7 +212,7 @@ const ProductsList = (props: Props) => {
                         <SwiperSlide key={file.filePath}>
                           <img
                             className='rounded-lg'
-                            src={`${PICT_URL}/${file.filePath}`}
+                            src={generateImgUrl(file.filePath)}
                             alt={file.productPicture}
                             style={{ width: '100px', height: '100px' }}
                           />
@@ -224,7 +244,10 @@ const ProductsList = (props: Props) => {
             ))
           ) : (
             <div className='no-data-message flex items-center justify-center h-screen w-screen mb-20'>
-              <p className='text-center text-lg font-semibold text-gray-500' style={{marginBottom: "280px", marginRight:"180px"}}>
+              <p
+                className='text-center text-lg font-semibold text-gray-500'
+                style={{ marginBottom: '280px', marginRight: '180px' }}
+              >
                 Il n'y a actuellement aucune enchère en cours. <br />
                 Consultez cette section plus tard pour voir les ventes en
                 direct.
@@ -241,7 +264,9 @@ const ProductsList = (props: Props) => {
                 <div
                   className='companyLogo'
                   style={{
-                    backgroundImage: `url(${PICT_URL}/${product.companyLogo})`,
+                    backgroundImage: `url(${generateBGImgUrl(
+                      product.companyLogo
+                    )})`,
                   }}
                 ></div>
                 <div className='content flex items-center'>
@@ -251,7 +276,7 @@ const ProductsList = (props: Props) => {
                         <SwiperSlide key={file.filePath}>
                           <img
                             className='rounded-lg'
-                            src={`${PICT_URL}/${file.filePath}`}
+                            src={generateImgUrl(file.filePath)}
                             alt={file.productPicture}
                             style={{ width: '100px', height: '100px' }}
                           />
@@ -285,7 +310,10 @@ const ProductsList = (props: Props) => {
             ))
           ) : (
             <div className='no-data-message flex items-center justify-center h-screen w-screen mb-20'>
-              <p className='text-center text-lg font-semibold text-gray-500' style={{marginBottom: "280px", marginRight:"180px"}}>
+              <p
+                className='text-center text-lg font-semibold text-gray-500'
+                style={{ marginBottom: '280px', marginRight: '180px' }}
+              >
                 Il n'y a aucune enchère terminée pour le moment. <br />
                 Consultez plus tard pour voir les résultats des ventes passées.
               </p>

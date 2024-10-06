@@ -1,41 +1,50 @@
-import React, { useEffect, useState } from "react";
-import Params from "../components/params";
-import CardHeader from "../components/cardHeader";
-import { useDispatch, useSelector } from "react-redux";
-import { SettingsState, fetchSettings } from "../reducers/settings";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { fetchSoldePacks } from "../reducers/soldePacksSlice";
-import SoldePacks from "../components/soldePacks";
-import { API_URL, axiosWithCred } from "../api/axiosConfig";
-import { useForm } from "react-hook-form";
-import { AiFillCloseCircle, AiFillPlusSquare, AiFillSave, AiOutlineCheck, AiOutlineClose, AiOutlineCloseCircle, AiOutlineCloseSquare, AiOutlineSave } from "react-icons/ai";
+import React, { useEffect, useState } from 'react'
+import Params from '../components/params'
+import CardHeader from '../components/cardHeader'
+import { useDispatch, useSelector } from 'react-redux'
+import { SettingsState, fetchSettings } from '../reducers/settings'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { fetchSoldePacks } from '../reducers/soldePacksSlice'
+import SoldePacks from '../components/soldePacks'
+import { API_URL, axiosWithCred } from '../api/axiosConfig'
+import { useForm } from 'react-hook-form'
+import {
+  AiFillCloseCircle,
+  AiFillPlusSquare,
+  AiFillSave,
+  AiOutlineCheck,
+  AiOutlineClose,
+  AiOutlineCloseCircle,
+  AiOutlineCloseSquare,
+  AiOutlineSave,
+} from 'react-icons/ai'
 
-type Props = {};
+type Props = {}
 
-const Parametres: React.FC<Props> = (props) => {
-  const dispatch = useDispatch<any>();
-  const setting = useSelector((state: any) => state.settings);
-  const soldePacks = useSelector((state: any) => state.soldePacks);
-  const { userId } = useParams();
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editedValue, setEditedValue] = useState<string>("");
-  const [showForm, setShowForm] = useState(false);
-  const [newPackTitle, setNewPackTitle] = useState("");
-  const [newPackSoldeValue, setNewPackSoldeValue] = useState("");
-  const [newPackRealValue, setNewPackRealValue] = useState("");
-  const token = localStorage.getItem("access_token");
-  console.log(token);
+const Parametres: React.FC<Props> = props => {
+  const dispatch = useDispatch<any>()
+  const setting = useSelector((state: any) => state.settings)
+  const soldePacks = useSelector((state: any) => state.soldePacks)
+  const { userId } = useParams()
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editedValue, setEditedValue] = useState<string>('')
+  const [showForm, setShowForm] = useState(false)
+  const [newPackTitle, setNewPackTitle] = useState('')
+  const [newPackSoldeValue, setNewPackSoldeValue] = useState('')
+  const [newPackRealValue, setNewPackRealValue] = useState('')
+  const token = localStorage.getItem('access_token')
+  console.log(token)
   useEffect(() => {
-    dispatch(fetchSettings(userId));
-    dispatch(fetchSoldePacks());
-  }, [dispatch, userId]);
+    dispatch(fetchSettings(userId))
+    dispatch(fetchSoldePacks())
+  }, [dispatch, userId])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedValue(event.target.value);
-  };
+    setEditedValue(event.target.value)
+  }
 
   const handleSave = async (v: string, val: string) => {
     try {
@@ -46,27 +55,27 @@ const Parametres: React.FC<Props> = (props) => {
           variable: v,
           value: val,
         }
-      );
-      toast.success("Value updated successfully!");
+      )
+      toast.success('Valeur mise à jour avec succès !')
 
-      setEditingId(null);
-      dispatch(fetchSettings(userId));
+      setEditingId(null)
+      dispatch(fetchSettings(userId))
     } catch (error) {
-      console.error("Error updating setting:", error);
+      console.error('Error updating setting:', error)
     }
-  };
+  }
 
   const handleCancel = () => {
-    setEditingId(null);
-    setEditedValue("");
-  };
+    setEditingId(null)
+    setEditedValue('')
+  }
 
   const handleSave2 = async (id: any, v: string, val: string) => {
     try {
       const headers = {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-      };
+      }
       const response = await axios.patch(
         `${API_URL}/setting/updateSoldePacks`,
         {
@@ -75,33 +84,33 @@ const Parametres: React.FC<Props> = (props) => {
           realValue: val,
         },
         { headers }
-      );
-      toast.success("Value updated successfully!");
+      )
+      toast.success('Valeur mise à jour avec succès !')
 
-      setEditingId(null);
-      dispatch(fetchSettings(userId));
+      setEditingId(null)
+      dispatch(fetchSettings(userId))
     } catch (error) {
-      console.error("Error updating setting:", error);
+      console.error('Error updating setting:', error)
     }
-  };
+  }
 
   const handleAddClick = () => {
-    setShowForm(true);
-  };
+    setShowForm(true)
+  }
 
   const handleCancel2 = () => {
-    setShowForm(false);
-    setNewPackTitle("");
-    setNewPackSoldeValue("");
-    setNewPackRealValue("");
-  };
+    setShowForm(false)
+    setNewPackTitle('')
+    setNewPackSoldeValue('')
+    setNewPackRealValue('')
+  }
 
   const handleSaveNewPacks = async () => {
     try {
       const headers = {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-      };
+      }
       const response = await axios.post(
         `${API_URL}/setting/createNewPack`,
         {
@@ -110,50 +119,50 @@ const Parametres: React.FC<Props> = (props) => {
           realValue: newPackRealValue,
         },
         { headers }
-      );
-      toast.success("New pack created successfully!");
-      setShowForm(false);
-      setNewPackTitle("");
-      setNewPackSoldeValue("");
-      setNewPackRealValue("");
+      )
+      toast.success('Nouveau pack créé avec succès !')
+      setShowForm(false)
+      setNewPackTitle('')
+      setNewPackSoldeValue('')
+      setNewPackRealValue('')
 
-      dispatch(fetchSoldePacks());
+      dispatch(fetchSoldePacks())
     } catch (error) {
-      console.error("Error creating new pack:", error);
+      console.error('Error creating new pack:', error)
     }
-  };
+  }
 
   const handleDeletePack = async (packId: string) => {
     try {
       const headers = {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-      };
+      }
       const response = await axios.delete(
         `${API_URL}/setting/deleteSoldePack/${packId}`,
         { headers }
-      );
-      toast.success("Pack deleted successfully!");
+      )
+      toast.success('Pack supprimé avec succès !')
 
-      dispatch(fetchSoldePacks());
+      dispatch(fetchSoldePacks())
     } catch (error) {
-      console.error("Error deleting pack:", error);
+      console.error('Error deleting pack:', error)
     }
-  };
+  }
 
   return (
-    <div className="w-full h-full">
+    <div className='w-full h-full'>
       <ToastContainer />
-      <div className="detailsRow">
-        <div className="cardDetailsContainer width60">
-          <div className="header">Parametres</div>
-          <div className="content">
-            <div className="flex flex-col">
+      <div className='detailsRow'>
+        <div className='cardDetailsContainer width60'>
+          <div className='header'>Parametres</div>
+          <div className='content'>
+            <div className='flex flex-col'>
               <div>
-                <div className="">
-                  <div className="flex flex-row justify-between transactionDetails items-center">
-                    <div className="flex justify-between w-[100%]">
-                      <div style={{ width: '100%'}}>
+                <div className=''>
+                  <div className='flex flex-row justify-between transactionDetails items-center'>
+                    <div className='flex justify-between w-[100%]'>
+                      <div style={{ width: '100%' }}>
                         {setting.settings.map((elem: any, ind: number) => (
                           <Params
                             key={`st-${ind}`}
@@ -176,27 +185,38 @@ const Parametres: React.FC<Props> = (props) => {
             </div>
           </div>
         </div>
-        <div className="cardDetailsContainer width40">
-          <div className="header">Solde package</div>
-          <div className="content">
-            <div className="flex flex-col">
-              <div className="devise-params-container">
-                <div className="devise-col">
-                  <div className="devise-title">App. Devise</div>
-                  <input className="devise-value" placeholder={setting.appDevise} />
+        <div className='cardDetailsContainer width40'>
+          <div className='header'>Solde package</div>
+          <div className='content'>
+            <div className='flex flex-col'>
+              <div className='devise-params-container'>
+                <div className='devise-col'>
+                  <div className='devise-title'>App. Devise</div>
+                  <input
+                    className='devise-value'
+                    placeholder={setting.appDevise}
+                  />
                 </div>
-                <div className="devise-col">
-                  <div className="devise-title">Devise</div>
-                  <input className="devise-value" placeholder={setting.devise} />
+                <div className='devise-col'>
+                  <div className='devise-title'>Devise</div>
+                  <input
+                    className='devise-value'
+                    placeholder={setting.devise}
+                  />
                 </div>
-                <div className="devise-col">
-                  <div className="devise-title">Taux de change</div>
-                  <input className="devise-value" placeholder={setting.changeTaux ? setting.changeTaux.toString() : "0"} />
+                <div className='devise-col'>
+                  <div className='devise-title'>Taux de change</div>
+                  <input
+                    className='devise-value'
+                    placeholder={
+                      setting.changeTaux ? setting.changeTaux.toString() : '0'
+                    }
+                  />
                 </div>
               </div>
-              <div className="add-params-container" onClick={handleAddClick}>
-                <AiFillPlusSquare size={52} color="rgba(188, 195, 249, 1)" />
-                <div className="add-title" >Ajouter Pack</div>
+              <div className='add-params-container' onClick={handleAddClick}>
+                <AiFillPlusSquare size={52} color='rgba(188, 195, 249, 1)' />
+                <div className='add-title'>Ajouter Pack</div>
               </div>
               <div>
                 {soldePacks.soldePacks.map((elem: any, ind: number) => (
@@ -215,29 +235,41 @@ const Parametres: React.FC<Props> = (props) => {
                 ))}
               </div>
               {showForm && (
-                <div className="params-item bleu-bg">
-                  <input className="sett-col-outline" style={{ width: '40%' }}
-                    type="text"
-                    placeholder="Pack"
-                    onChange={(e) => setNewPackTitle(e.target.value)}
+                <div className='params-item bleu-bg'>
+                  <input
+                    className='sett-col-outline'
+                    style={{ width: '40%' }}
+                    type='text'
+                    placeholder='Pack'
+                    onChange={e => setNewPackTitle(e.target.value)}
                   />
-                  <input className="sett-col-outline" style={{ width: '20%' }}
-                    type="text"
-                    placeholder={"valeur " + setting.appDevise}
-                    onChange={(e) => setNewPackSoldeValue(e.target.value)}
+                  <input
+                    className='sett-col-outline'
+                    style={{ width: '20%' }}
+                    type='text'
+                    placeholder={'valeur ' + setting.appDevise}
+                    onChange={e => setNewPackSoldeValue(e.target.value)}
                   />
-                  <input className="sett-col-outline" style={{ width: '20%' }}
-                    type="text"
-                    placeholder={"valeur " + setting.devise}
-                    onChange={(e) => setNewPackRealValue(e.target.value)}
+                  <input
+                    className='sett-col-outline'
+                    style={{ width: '20%' }}
+                    type='text'
+                    placeholder={'valeur ' + setting.devise}
+                    onChange={e => setNewPackRealValue(e.target.value)}
                   />
-                  
-                  <div className="sett-actions">
-                    <button className="sett-action" onClick={handleSaveNewPacks}>
-                      <AiOutlineSave size={24} color="green"></AiOutlineSave>
+
+                  <div className='sett-actions'>
+                    <button
+                      className='sett-action'
+                      onClick={handleSaveNewPacks}
+                    >
+                      <AiOutlineSave size={24} color='green'></AiOutlineSave>
                     </button>
-                    <button className="sett-action" onClick={handleCancel2}>
-                      <AiOutlineCloseCircle size={24} color="red"></AiOutlineCloseCircle>
+                    <button className='sett-action' onClick={handleCancel2}>
+                      <AiOutlineCloseCircle
+                        size={24}
+                        color='red'
+                      ></AiOutlineCloseCircle>
                     </button>
                   </div>
                 </div>
@@ -247,7 +279,7 @@ const Parametres: React.FC<Props> = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Parametres;
+export default Parametres
