@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { API_URL } from "../api/axiosConfig";
 import logo from "../assets/logo.png";
+import { useDispatch, useSelector } from "react-redux";
+import { setError } from '../reducers/errorSlice'
+import { toast, ToastContainer } from "react-toastify";
+
 type ResetPasswordData = {
   email: string;
   newPassword: string;
@@ -22,17 +26,20 @@ const ResetPassword = () => {
       setEmail(decodedToken.email);
     }
   }, [key]);
-
+  const navigate = useNavigate()
+  const { message } = useSelector((state: any) => state.error)
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<ResetPasswordData>();
-
+  const dispatch = useDispatch()
   const onSubmit = async (data: ResetPasswordData) => {
     try {
       if (data.newPassword !== data.confirmationNewPassword) {
+        dispatch(setError("Password confirmation doesn't match"))
+        toast.error("Password confirmation doesn't match")
         throw new Error("Password confirmation doesn't match");
       }
 
@@ -41,10 +48,12 @@ const ResetPassword = () => {
         data
       );
 
-      console.log(response.data.message);
-      reset(); // Reset the form after successful submission
+      
+
+      navigate('/login')
+      reset();
     } catch (error: any) {
-      console.log(error.message);
+      toast.error(error.response.data.message)
     }
   };
 
@@ -101,6 +110,7 @@ const ResetPassword = () => {
           <div>Invalid reset key</div>
         )}
       </div>
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };
