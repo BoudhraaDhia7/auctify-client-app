@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchTotalSolde } from "../reducers/totalSoldeSlice";
-import Card from "../components/card";
-import { useParams } from "react-router-dom";
-import {  ProductInfos } from "../api/interfaces";
-import { getProductById } from "../api/actions";
+import { useNavigate, useParams } from "react-router-dom";
+import { ProductInfos } from "../api/interfaces";
+import { confirmProduct, getProductById } from "../api/actions";
 import { PICT_URL } from "../api/axiosConfig";
+import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
+
 type Props = {};
 
 const ProductInfo: React.FC = () => {
@@ -14,6 +14,13 @@ const ProductInfo: React.FC = () => {
 
   const [ prodInfos, setProdInfos ] = useState<ProductInfos[]>([]);
   const [ isLoading, setIsloading ] = useState<boolean>(false);
+
+  const curUser = useSelector(
+    (state: any) => state?.currentUser?.user?.currentUser
+  );
+
+
+  const navigate = useNavigate();
 
   const getProdInfos = async() => {
     setIsloading(false);
@@ -35,11 +42,22 @@ const ProductInfo: React.FC = () => {
     return `${PICT_URL}${filePath}`;
   }
 
+  const handleProductConfirmation = async () => {
+    const response = await confirmProduct(id ?? '');
+
+    if (response) {
+      toast.success("Produit confirmé avec succès!");
+      if(curUser.role === 1)
+        navigate('/displayCompanyProducts');
+      else
+        navigate('/productsList');
+    }
+  };
   const renderInfos = () => {
     return(
       <div className="product-info-container">
         <div className="product-info-picture">
-          <img src={generateImgUrl(prodInfos[0].prodPicture[0].filePath)} />
+          <img src={generateImgUrl(prodInfos[0]?.prodPicture[0]?.filePath ?? '')} />
         </div>
         <div className="product-info-content">
           <div className="prodInfos">
@@ -66,8 +84,16 @@ const ProductInfo: React.FC = () => {
               </div>
             </div>
             <div className="product-info-dexcription" dangerouslySetInnerHTML={{ __html: prodInfos[0].prodDescription }}></div>
+            
+            {(prodInfos[0] as any).prodStatus === -1 && curUser.role === 2 && (
+              <button onClick={handleProductConfirmation} style={{ backgroundColor: '#28A745', color: 'white', padding: '7px 30px', border: 'none', borderRadius: '5px', cursor: 'pointer', marginTop: 15, fontWeight: 500 }}>
+                Confirmer le produit
+              </button>
+            )}
+
           </div>
         </div>
+        <ToastContainer />
       </div>
     )
   }

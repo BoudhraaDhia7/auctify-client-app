@@ -1,5 +1,5 @@
 // Sidebar.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
@@ -16,13 +16,13 @@ import { useDispatch, useSelector } from "react-redux";
 type Props = {};
 
 const Sidebar = (props: Props) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch<any>();
+
   const curUser = useSelector(
     (state: any) => state?.currentUser?.user?.currentUser
   );
+  
   const access_role = localStorage.getItem("roleID");
-  console.log("curUser", curUser);
+
   const [accessRole, setAccessRole] = useState<string | null>(null);
   useEffect(() => {
     const roleID = localStorage.getItem("roleID");

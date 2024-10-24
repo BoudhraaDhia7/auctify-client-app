@@ -50,6 +50,7 @@ export const CreateProduct = ( { isModalOpen } : Props ) => {
     for (let i = 0; i < formData.files.length; i++) {
       formDataToSubmit.append("files", formData.files[i]);
     }
+    
     try {
       await createProductsApi(formDataToSubmit);
       setIsSuccess(true);

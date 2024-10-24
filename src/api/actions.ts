@@ -92,3 +92,14 @@ export async function registerCompany(
     return undefined;
   }
 }
+
+export async function confirmProduct(prodId : string): Promise<Modified | undefined> {
+  try {
+    const { data }: { data: Modified } = await axiosWithCred.post(
+      "product/confirmProduct", {prodId}
+    );
+    return data;
+  } catch (error) {
+    return undefined;
+  }
+}

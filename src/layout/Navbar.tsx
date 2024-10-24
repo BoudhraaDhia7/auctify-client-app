@@ -21,7 +21,7 @@ const Navbar = (props: Props) => {
   );
   const global = useSelector((state: any) => state.global);
   const location = useLocation();
-  console.log(location);
+
   const [isListVisible, setIsListVisible] = useState(false);
   const [ withSearch, setWithSearch] = useState<boolean>(false);
   const [ isSearch, setIsSearch] = useState<boolean>(false);
@@ -84,7 +84,7 @@ const Navbar = (props: Props) => {
   }
 
   function generateImgUrl(filePath: string) {
-    console.log("filePath", filePath);
+
     if(filePath.includes("http")) return filePath;
     return `${PICT_URL}${filePath}`;
   }
